@@ -166,6 +166,32 @@ initializr:
     platform:
       compatibility-range: "3.1.0"
   dependencies:
+    - name: APISDK Libraries
+      content:
+        - name: Logger
+          id: log
+          group-id: com.ing.apisdk
+          artifact-id: merak-kafka-application-logging-spring-boot-starter_${scala-compiler.version}
+          description: Logging library
+          starter: true
+        - name: Merak SpringMvc
+          id: merak-springmvc
+          group-id: com.ing.apisdk
+          artifact-id: merak-springmvc-spring-boot-starter_${scala-compiler.version}
+          description: Merak Spring Mvc starter
+          starter: true
+        - name: Toolkit Connectivity Tibco
+          id: toolkit-connectivity-jms
+          group-id: com.ing.apisdk
+          artifact-id: toolkit-connectivity-transport-jms-tibco_${scala-compiler.version}
+          description: Toolkit JMS library
+          starter: false
+        - name: Merak Prometheus
+          id: merak-prometheus
+          group-id: com.ing.apisdk
+          artifact-id: merak-prometheus-spring-boot-starter_${scala-compiler.version}
+          description: Merak prometheus starter
+          starter: true
     - name: Developer Tools
       content:
         - name: GraalVM Native Support

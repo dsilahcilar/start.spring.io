@@ -1,0 +1,145 @@
+name: $(Rev:r)
+
+trigger:
+  - main
+
+parameters:
+  - name: action
+    displayName: 'Deploy/Delete/the app OR cleanup namespace'
+    type: string
+    default: deploy
+    values:
+      - deploy
+      - delete
+      - wipe_all
+      - rescale
+      - rollback
+  - name: deploy_tst
+    displayName: 'to TST Environment'
+    type: boolean
+    default: false
+  - name: deploy_acc_dcr
+    displayName: 'to ACC Environment in DCR Datacenter'
+    type: boolean
+    default: false
+  - name: deploy_acc_wpr
+    displayName: 'to ACC Environment in WPR Datacenter'
+    type: boolean
+    default: false
+  - name: deploy_prd_dcr
+    displayName: 'to PRD Environment in DCR Datacenter'
+    type: boolean
+    default: false
+  - name: deploy_prd_wpr
+    displayName: 'to PRD Environment in WPR Datacenter'
+    type: boolean
+    default: false
+  - name: run_bdd_tests
+    displayName: 'Run BDD Tests'
+    type: boolean
+    default: false
+
+resources:
+  repositories:
+    - repository: tp
+      type: git
+      name: IngOne/P02670-global-templates
+      ref: {{refVal}}
+
+stages:
+
+  - template: api/build-app-container/template.yml@tp
+    parameters:
+      incomingFeed: 'P15779-incoming-tfsinterfaces'
+      targetBinaryDirectory: 'web/target'
+      targetConfigurationDirectory: 'web/target'
+      targetRepository: 'p15779tfsinteracr.azurecr.io'
+      targetACR: 'P15779-TFSInterACR-ACR-write'
+      prismaAzureSC: 'P15779-Prisma-Prisma-NONPROD'
+      whitelist: 'docker/whitelist.yaml'
+
+      # below parameters needs to retrieve the keystores using the get resources template
+      pipelineIdentity: 'P15779-pipelineidentity-svc'
+      autoResources: true
+      autoKeystores: true
+      appName: 'TFSLiabilityService'
+      purposeID: 'P15779'
+      enforcedJdkVersion: '1.17'
+      dockerImageVersion: 'release.ww.bi.4.1.0/standalone-java/rhel8/openjdk17'
+      checkmarxSC: 'P02727-Checkmarx-SVC-2023'
+      enableDependencyScan: true
+      projectName: 'TFSLiabilityService'
+
+  - template: /api/release-app/template.yml@tp
+    parameters:
+      purposeID: 'P15779'
+      appName: 'TFSLiabilityService'
+      acrEndpoint: 'P15779-TFSInterACR-ACR-write'
+      squad: 'Connectors'
+      deployTimeout: '55m'
+      action: '${{ parameters.action }}'
+      useAutocert: false
+      envProp:
+        - ${{ if parameters.deploy_tst }}:
+            - {
+              azureKeyVault: 'P15779-KeyVault-T',
+              envType: 'tst',
+              envDcr: 'dcr',
+              ### for ICHP V1 connection
+           #   serviceConnection: 'P15779-tfsfeeds-tst-ICHP-DCR.NON-PROD',
+              ### for ICHP V2 connection
+              serviceConnection: 'P15779-tfsfeeds-tst.api.cluster0046.non-prod.ichp.ing.net',
+              azureSubscription: 'P15779-KeyVault-SVC-NONPROD',
+              skipPrometheus: false,
+              deployConfidence: false
+            }
+        - ${{ if parameters.deploy_acc_dcr }}:
+            - {
+              azureKeyVault: 'P15779-KeyVault-A',
+              envType: 'acc',
+              envDcr: 'dcr',
+              ### for ICHP V1 connection
+              #serviceConnection: 'P15779-tfsfeeds-acc-ICHP-DCR.NON-PROD',
+              ### for ICHP V2 connection
+              serviceConnection: 'P15779-tfsfeeds-acc.api.cluster0046.non-prod.ichp.ing.net',
+              azureSubscription: 'P15779-KeyVault-SVC-NONPROD',
+              skipPrometheus: false,
+              deployConfidence: false
+            }
+        - ${{ if parameters.deploy_acc_wpr }}:
+            - {
+              azureKeyVault: 'P15779-KeyVault-A',
+              envType: 'acc',
+              envDcr: 'wpr',
+              ### for ICHP V1 connection
+              #serviceConnection: 'P15779-tfsfeeds-acc-ICHP-WPR.NON-PROD',
+              ### for ICHP V2 connection
+              serviceConnection: 'P15779-tfsfeeds-acc.api.cluster0047.non-prod.ichp.ing.net',
+              azureSubscription: 'P15779-KeyVault-SVC-NONPROD',
+              skipPrometheus: false,
+              deployConfidence: false
+            }
+        - ${{ if parameters.deploy_prd_dcr }}:
+            - {
+              azureKeyVault: 'P15779-KeyVault-P',
+              envType: 'prd',
+              envDcr: 'dcr',
+              ### for ICHP V1 connection
+              serviceConnection: 'P15779-tfsfeeds-prd-ICHP-DCR.PROD',
+              ### for ICHP V2 connection
+              # serviceConnection: 'P15779-tfsfeeds-prd.api.cluster0018.prod.ichp.ing.net',
+              azureSubscription: 'P15779-KeyVault-SVC-PROD',
+              skipPrometheus: false
+            }
+        - ${{ if parameters.deploy_prd_wpr }}:
+            - {
+              azureKeyVault: 'P15779-KeyVault-P',
+              envType: 'prd',
+              envDcr: 'wpr',
+              ### for ICHP V1 connection
+              serviceConnection: 'P15779-tfsfeeds-prd-ICHP-WPR.PROD',
+              ### for ICHP V2 connection
+              # serviceConnection: 'P15779-tfsfeeds-acc.api.cluster0019.prod.ichp.ing.net',
+              azureSubscription: 'P15779-KeyVault-SVC-PROD',
+              skipPrometheus: false
+            }
