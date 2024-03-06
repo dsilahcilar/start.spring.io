@@ -6,7 +6,7 @@ function Logo({ className }) {
       <svg
           aria-hidden="true"
           focusable="false"
-          data-icon="spring-initializr"
+          data-icon="merak-initializr"
           role="img"
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
@@ -14,9 +14,6 @@ function Logo({ className }) {
           className={className}
           viewBox="0 0 992.4 141.6"
       >
-        {/*<image x="20" y="15" width="110" height="110" preserveAspectRatio="none"*/}
-        {/*       href="https://play-lh.googleusercontent.com/SwZjyAwTQdZ0UiOmaTkORqVijgK-tsb4c-lLowpY3g-9QYY5nwtSgLGAoDlLhbcENSQ"/>*/}
-
         <g id="svgGroup" strokeLinecap="round" fillRule="evenodd" fontSize="9pt" stroke="#ff6200" strokeWidth="1.25mm"
            fill="#ff6200">
           <path

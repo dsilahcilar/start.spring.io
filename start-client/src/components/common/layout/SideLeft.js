@@ -69,8 +69,8 @@ function SideLeft() {
               href='https://theforge.ing.net/product/12051/documentation/26.1.0/explanation/merak/index'
             >
               <img width="60" height="60"
-                   src="https://play-lh.googleusercontent.com/SwZjyAwTQdZ0UiOmaTkORqVijgK-tsb4c-lLowpY3g-9QYY5nwtSgLGAoDlLhbcENSQ"></img>
-
+                   src='../../../images/initializr-icon.png'
+              />
             </a>
           </div>
         </div>

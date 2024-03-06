@@ -76,6 +76,10 @@ const config = {
           from: path.resolve(__dirname, 'static/images'),
           to: path.resolve(__dirname, 'public/images'),
         },
+        {
+          from: path.resolve(__dirname, 'src/images'),
+          to: path.resolve(__dirname, 'public/images'),
+        }
       ],
     }),
     new HtmlWebpackPlugin({
