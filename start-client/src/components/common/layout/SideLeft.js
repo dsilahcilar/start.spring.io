@@ -44,41 +44,41 @@ function SideLeft() {
     <>
       <div id='side-left' className={isOpen ? 'is-open' : ''}>
         <div className='side-container'>
-          <div className='navigation-action'>
-            <button
-              className={`hamburger hamburger--spin ${nav ? 'is-active' : ''}`}
-              type='button'
-              aria-label='Menu'
-              aria-controls='navigation'
-              onClick={() => {
-                if (lock) {
-                  return
-                }
-                dispatch({ type: 'UPDATE', payload: { nav: !nav } })
-              }}
-            >
-              <span className='hamburger-box' tabIndex='-1'>
-                <span className='hamburger-inner' />
-              </span>
-            </button>
-          </div>
-          <div className='social'>
+          {/*<div className='navigation-action'>*/}
+          {/*  <button*/}
+          {/*    className={`hamburger hamburger--spin ${nav ? 'is-active' : ''}`}*/}
+          {/*    type='button'*/}
+          {/*    aria-label='Menu'*/}
+          {/*    aria-controls='navigation'*/}
+          {/*    onClick={() => {*/}
+          {/*      if (lock) {*/}
+          {/*        return*/}
+          {/*      }*/}
+          {/*      dispatch({ type: 'UPDATE', payload: { nav: !nav } })*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    <span className='hamburger-box' tabIndex='-1'>*/}
+          {/*      <span className='hamburger-inner' />*/}
+          {/*    </span>*/}
+          {/*  </button>*/}
+          {/*</div>*/}
+          <div className='doc'>
             <a
               rel='noreferrer noopener'
               target='_blank'
-              href='https://github.com/spring-io/start.spring.io'
+              href='https://theforge.ing.net/product/12051/documentation/26.1.0/explanation/merak/index'
             >
-              <span className='a-content' tabIndex='-1'>
-                <IconGithub />
-              </span>
+              <img width="60" height="60"
+                   src="https://play-lh.googleusercontent.com/SwZjyAwTQdZ0UiOmaTkORqVijgK-tsb4c-lLowpY3g-9QYY5nwtSgLGAoDlLhbcENSQ"></img>
+
             </a>
           </div>
         </div>
       </div>
       <TransitionGroup component={null}>
         {nav && (
-          <CSSTransition
-            onEnter={onEnter}
+            <CSSTransition
+                onEnter={onEnter}
             onEntered={onEntered}
             onExit={onEnded}
             onExited={onExited}

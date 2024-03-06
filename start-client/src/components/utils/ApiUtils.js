@@ -278,6 +278,8 @@ export const getProject = function getProject(url, values, config) {
       packageName: get(values, 'meta.packageName'),
       packaging: get(values, 'meta.packaging'),
       javaVersion: get(values, 'meta.java'),
+      pCode: get(values, 'meta.pCode'),
+      pName: get(values, 'meta.pName'),
     })
     let paramsDependencies = get(values, 'dependencies', [])
       .map(dependency => {

@@ -34,6 +34,10 @@ function Fields({
     dispatchInitializr({ type: 'UPDATE', payload: args })
   }
 
+  const filterNumbers = (value) => {
+    return isNaN(value) ? '' : value
+  };
+
   return (
     <>
       <div className='colset colset-main'>
@@ -150,6 +154,22 @@ function Fields({
                 onChange={value => {
                   update({ meta: { java: value } })
                 }}
+              />
+              <FieldInput
+                  id='input-pCode'
+                  value={get(values, 'meta.pCode')}
+                  text='P-Code'
+                  onChange={event => {
+                    update({ meta: { pCode: filterNumbers(event.target.value) } })
+                  }}
+              />
+              <FieldInput
+                  id='input-pName'
+                  value={get(values, 'meta.pName')}
+                  text='Product Name'
+                  onChange={event => {
+                    update({ meta: { pName: event.target.value } })
+                  }}
               />
             </Control>
           </div>

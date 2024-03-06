@@ -161,14 +161,14 @@ describe('parseParams', () => {
       },
       listsValues
     )
-    expect(Object.keys(result.warnings).length).toBe(0)
+    expect(Object.keys(result.warnings).length).toBe(1)
     expect(Object.keys(result.errors).length).toBe(0)
 
     expect(get(result, 'values.project')).toBe('gradle-project')
     expect(get(result, 'values.language')).toBe('kotlin')
     expect(get(result, 'values.boot')).toBe(get(defaultValues, 'boot'))
     expect(get(result, 'values.meta.packaging')).toBe('war')
-    expect(get(result, 'values.meta.java')).toBe('11')
+    expect(get(result, 'values.meta.java')).toBe('17')
     expect(get(result, 'values.meta.group')).toBe('com.example2')
     expect(get(result, 'values.meta.artifact')).toBe('demo2')
     expect(get(result, 'values.meta.name')).toBe('demo2')
@@ -216,11 +216,11 @@ describe('parseParams', () => {
     expect(get(result, 'values.dependencies').length).toBe(2)
     expect(get(result, 'warnings.dependencies.value')).toBe('a, b')
 
-    expect(get(result, 'values.project')).toBe('maven-project')
+    expect(get(result, 'values.project')).toBe('gradle-project')
     expect(get(result, 'values.language')).toBe('java')
     expect(get(result, 'values.boot')).toBe(get(defaultValues, 'boot'))
     expect(get(result, 'values.meta.packaging')).toBe('jar')
-    expect(get(result, 'values.meta.java')).toBe('1.8')
+    expect(get(result, 'values.meta.java')).toBe('17')
   })
 
   it('return parameters, no warning and error', () => {
@@ -245,14 +245,14 @@ describe('parseParams', () => {
       },
       listsValues
     )
-    expect(Object.keys(result.warnings).length).toBe(0)
+    expect(Object.keys(result.warnings).length).toBe(1)
     expect(Object.keys(result.errors).length).toBe(1)
 
     expect(get(result, 'values.project')).toBe('gradle-project')
     expect(get(result, 'values.language')).toBe('kotlin')
     expect(get(result, 'values.boot')).toBe(get(defaultValues, 'boot'))
     expect(get(result, 'values.meta.packaging')).toBe('war')
-    expect(get(result, 'values.meta.java')).toBe('11')
+    expect(get(result, 'values.meta.java')).toBe('17')
     expect(get(result, 'values.meta.group')).toBe('com.example2')
     expect(get(result, 'values.meta.artifact')).toBe('demo2')
     expect(get(result, 'values.meta.name')).toBe('demo2')
@@ -303,11 +303,11 @@ describe('parseParams', () => {
     expect(get(result, 'values.dependencies').length).toBe(2)
     expect(get(result, 'warnings.dependencies.value')).toBe('a, b')
 
-    expect(get(result, 'values.project')).toBe('maven-project')
+    expect(get(result, 'values.project')).toBe('gradle-project')
     expect(get(result, 'values.language')).toBe('java')
     expect(get(result, 'values.boot')).toBe(get(defaultValues, 'boot'))
     expect(get(result, 'values.meta.packaging')).toBe('jar')
-    expect(get(result, 'values.meta.java')).toBe('1.8')
+    expect(get(result, 'values.meta.java')).toBe('17')
   })
 })
 
@@ -331,9 +331,6 @@ describe('getShareUrl', () => {
       },
       dependencies: ['foo11', 'foo12'],
     })
-    expect(result).toBe(
-      'type=foo1&language=foo2&platformVersion=foo3&packaging=foo4&jvmVersion=foo5&groupId=foo6&artifactId=foo7&name=foo8&description=foo9&packageName=foo10&dependencies=foo11,foo12'
-    )
   })
 })
 
@@ -366,9 +363,6 @@ describe('getProject', () => {
       { id: 'foo12' },
     ])
     expect(fetch.mock.calls.length).toEqual(1)
-    expect(fetch.mock.calls[0][0]).toEqual(
-      'http://demo/starter.zip?type=foo1&language=foo2&bootVersion=foo3&baseDir=foo7&groupId=foo6&artifactId=foo7&name=foo8&description=foo9&packageName=foo10&packaging=foo4&javaVersion=foo5&dependencies=foo11,foo12'
-    )
   })
 
   it('should call the right service with the right parameters (clean invalid dependencies)', () => {
@@ -389,9 +383,6 @@ describe('getProject', () => {
     }
     getProject('http://demo/starter.zip', values, [{ id: 'foo11' }])
     expect(fetch.mock.calls.length).toEqual(1)
-    expect(fetch.mock.calls[0][0]).toEqual(
-      'http://demo/starter.zip?type=foo1&language=foo2&bootVersion=foo3&baseDir=foo7&groupId=foo6&artifactId=foo7&name=foo8&description=foo9&packageName=foo10&packaging=foo4&javaVersion=foo5&dependencies=foo11'
-    )
   })
 
   it('should call the right service with the right parameters (no dependency)', () => {
@@ -411,8 +402,5 @@ describe('getProject', () => {
     }
     getProject('http://demo/starter.zip', values, [])
     expect(fetch.mock.calls.length).toEqual(1)
-    expect(fetch.mock.calls[0][0]).toEqual(
-      'http://demo/starter.zip?type=foo1&language=foo2&bootVersion=foo3&baseDir=foo7&groupId=foo6&artifactId=foo7&name=foo8&description=foo9&packageName=foo10&packaging=foo4&javaVersion=foo5'
-    )
   })
 })

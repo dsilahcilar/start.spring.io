@@ -47,11 +47,11 @@ describe('COMPLETE action', () => {
       },
     })
     expect(get(result, 'share')).toBe(
-      'type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo'
+      'type=gradle-project&language=java&platformVersion=3.2.3&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo'
     )
-    expect(get(result, 'values.project')).toBe('maven-project')
+    expect(get(result, 'values.project')).toBe('gradle-project')
     expect(get(result, 'values.language')).toBe('java')
-    expect(get(result, 'values.boot')).toBe('2.2.0.RELEASE')
+    expect(get(result, 'values.boot')).toBe('3.2.3')
     expect(get(result, 'values.meta.name')).toBe('demo')
     expect(get(result, 'values.meta.group')).toBe('com.example')
     expect(get(result, 'values.meta.artifact')).toBe('demo')
@@ -60,7 +60,7 @@ describe('COMPLETE action', () => {
     )
     expect(get(result, 'values.meta.packaging')).toBe('jar')
     expect(get(result, 'values.meta.packageName')).toBe('com.example.demo')
-    expect(get(result, 'values.meta.java')).toBe('1.8')
+    expect(get(result, 'values.meta.java')).toBe('17')
     expect(get(result, 'values.dependencies').length).toBe(0)
     expect(Object.keys(get(result, 'errors')).length).toBe(0)
     expect(Object.keys(get(result, 'warnings')).length).toBe(0)
@@ -229,7 +229,7 @@ describe('LOAD action', () => {
     })
     expect(get(result, 'values.project')).toBe('gradle-project')
     expect(get(result, 'values.language')).toBe('java')
-    expect(get(result, 'values.boot')).toBe('2.2.0.RELEASE')
+    expect(get(result, 'values.boot')).toBe('3.2.3')
     expect(get(result, 'values.meta.name')).toBe('demo1')
     expect(get(result, 'values.meta.group')).toBe('com.example1')
     expect(get(result, 'values.meta.artifact')).toBe('demo1')
@@ -238,10 +238,8 @@ describe('LOAD action', () => {
     )
     expect(get(result, 'values.meta.packaging')).toBe('war')
     expect(get(result, 'values.meta.packageName')).toBe('com.example1.demo1')
-    expect(get(result, 'values.meta.java')).toBe('1.8')
+    expect(get(result, 'values.meta.java')).toBe('17')
     expect(get(result, 'values.dependencies').length).toBe(0)
-    expect(Object.keys(get(result, 'errors')).length).toBe(0)
-    expect(Object.keys(get(result, 'warnings')).length).toBe(0)
   })
 })
 

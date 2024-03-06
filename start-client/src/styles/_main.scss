@@ -66,13 +66,13 @@ body {
       color: $light-primary;
     }
   }
-  .social {
+  .doc {
     position: absolute;
-    bottom: 10px;
-    left: 0;
+    bottom: 5%;
+    left: -50%;
     width: 5rem;
     a {
-      $size: 30px;
+      $size: 50px;
       svg {
         width: $size;
         height: $size;
@@ -114,7 +114,7 @@ body {
   }
   h1.logo {
     max-width: 320px;
-    padding: 2rem 0;
+    padding: 15px 0;
     a {
       @include outline;
       display: block;
@@ -201,7 +201,7 @@ body {
 hr.divider {
   border: 0 none;
   border-top: 1px solid $light-border;
-  margin: 0.2rem 0 2rem;
+  margin: 0.2rem 0 1rem;
 }
 
 // Colset
