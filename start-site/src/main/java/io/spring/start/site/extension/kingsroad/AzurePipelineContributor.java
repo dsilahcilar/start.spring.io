@@ -2,8 +2,6 @@ package io.spring.start.site.extension.kingsroad;
 
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.contributor.ProjectContributor;
-import io.spring.initializr.generator.spring.documentation.HelpDocument;
-import org.springframework.core.Ordered;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,7 +22,7 @@ public class AzurePipelineContributor implements ProjectContributor {
     public void contribute(Path projectRoot) throws IOException {
         Path file = Files.createFile(projectRoot.resolve("azure-pipeline.yml"));
         try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(file))) {
-            this.azureDocument.write(writer);
+            this.azureDocument.write(writer,description);
         }
     }
 }

@@ -50,10 +50,10 @@ stages:
 
   - template: api/build-app-container/template.yml@tp
     parameters:
-      incomingFeed: 'P15779-incoming-tfsinterfaces'
+      incomingFeed: '{{pCode}}-incoming-tfsinterfaces'
       targetBinaryDirectory: 'web/target'
       targetConfigurationDirectory: 'web/target'
-      targetRepository: 'p15779tfsinteracr.azurecr.io'
-      targetACR: 'P15779-TFSInterACR-ACR-write'
-      prismaAzureSC: 'P15779-Prisma-Prisma-NONPROD'
+      targetRepository: '{{pCode}}tfsinteracr.azurecr.io'
+      targetACR: '{{pCode}}-TFSInterACR-ACR-write'
+      prismaAzureSC: '{{pCode}}-Prisma-Prisma-NONPROD'
       whitelist: 'docker/whitelist.yaml'
