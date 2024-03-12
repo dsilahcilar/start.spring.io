@@ -11,9 +11,6 @@ public class KingsroadContributor implements ProjectContributor {
     @Override
     public void contribute(Path projectRoot) throws IOException {
         Path configDirectory = Files.createDirectories(projectRoot.resolve("config"));
-        //Path pomFile = Files.createFile(webDirectory.resolve("pom.xml"));
-        //writeBuild(Files.newBufferedWriter(pomFile));
-
         Files.createDirectories(configDirectory.resolve("assembly"));
         Files.createDirectories(configDirectory.resolve("environments"));
     }
@@ -22,4 +19,5 @@ public class KingsroadContributor implements ProjectContributor {
     public int getOrder() {
         return Ordered.LOWEST_PRECEDENCE;
     }
+
 }
