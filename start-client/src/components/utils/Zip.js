@@ -26,12 +26,12 @@ export const getLanguage = file => {
 export const createTree = (files, path, fileName, zip) => {
   return new Promise(resolve => {
     const recursive = (pfiles, ppath, pfileName, pzip, pdepth) => {
-      const type = pfiles[ppath].dir ? 'folder' : 'file'
+      const type = pdepth === 0 ? 'folder' : pfiles[ppath].dir ? 'folder' : 'file'
       const item = {
         type,
         filename: pfileName,
         path: `/${ppath}`,
-        hidden: pdepth === 1 && type === 'folder' ? true : null,
+        hidden: pdepth === 2 && type === 'folder' ? true : null,
       }
       if (type === 'folder') {
         const children = []

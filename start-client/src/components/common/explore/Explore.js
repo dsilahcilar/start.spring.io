@@ -34,7 +34,7 @@ function Explore({ open, onClose, projectName, blob }) {
         const { files } = await zipJs.loadAsync(blob).catch(() => {
           throw Error(`Could not load the ZIP project.`)
         })
-        const path = `${findRoot({ files })}/`
+        const path = "" //`${findRoot({ files })}/`
         const result = await createTree(files, path, path, zipJs).catch(() => {
           throw Error(`Could not read the ZIP project.`)
         })
